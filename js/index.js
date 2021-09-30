@@ -37,6 +37,13 @@ window.addEventListener('load', (event) => {
       </div>
     `;
   });
+  
+  function cardPicked (card) {
+    card.classList.add("turned");
+    memoryGame.pickedCards.push(card);
+    console.log(memoryGame.pickedCards)
+    
+  }
 
   // Add all the divs to the HTML
   document.querySelector('#memory-board').innerHTML = html;
@@ -45,6 +52,7 @@ window.addEventListener('load', (event) => {
   document.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('click', () => {
       // TODO: write some code here
+      cardPicked (card) ;
       console.log(`Card clicked: ${card}`);
     });
   });
