@@ -26,6 +26,7 @@ const cards = [
 ];
 
 const memoryGame = new MemoryGame(cards);
+memoryGame.shuffleCards();
 const numberPairsClicked = document.getElementById("pairs-clicked");
 const numberPairsGuessed = document.getElementById("pairs-guessed");
 
@@ -66,8 +67,7 @@ window.addEventListener('load', (event) => {
     let attribute2 = card2.getAttribute('data-card-name');
     if (memoryGame.checkIfPair(attribute1, attribute2)) {
       memoryGame.pickedCards = [];
-      console.log(memoryGame.pairsGuessed);
-      console.log(memoryGame.cards.length);
+      
        
       
     } else if (!memoryGame.checkIfPair(attribute1, attribute2)) {
