@@ -26,6 +26,8 @@ const cards = [
 ];
 
 const memoryGame = new MemoryGame(cards);
+const numberPairsClicked = document.getElementById("pairs-clicked");
+const numberPairsGuessed = document.getElementById("pairs-guessed");
 
 window.addEventListener('load', (event) => {
   let html = '';
@@ -37,12 +39,42 @@ window.addEventListener('load', (event) => {
       </div>
     `;
   });
+
+  function printClicks(){
+    numberPairsClicked.textContent = memoryGame.pairsClicked;
+    numberPairsGuessed.textContent = memoryGame.pairsGuessed;
+
+  }
+
   
-  function cardPicked (card) {
-    card.classList.add("turned");
-    memoryGame.pickedCards.push(card);
-    console.log(memoryGame.pickedCards)
+  function cardPicked(card) {
+    if (memoryGame.pickedCards.length === 0) {
+      card.classList.add('turned');
+      memoryGame.pickedCards.push(card);
+    } else if (memoryGame.pickedCards.length === 1) {
+      card.classList.add('turned');
+      memoryGame.pickedCards.push(card);
+    } else { 
+      checkingCards(memoryGame.pickedCards[0], memoryGame.pickedCards[1]);
+    }
+    // if (memoryGame.checkIfFinished) { alert("bravo")}
     
+  }
+
+  function checkingCards(card1, card2) {
+    let attribute1 = card1.getAttribute('data-card-name');
+    let attribute2 = card2.getAttribute('data-card-name');
+    if (memoryGame.checkIfPair(attribute1, attribute2)) {
+      memoryGame.pickedCards = [];
+      console.log(memoryGame.pairsGuessed);
+      console.log(memoryGame.cards.length);
+       
+      
+    } else if (!memoryGame.checkIfPair(attribute1, attribute2)) {
+      card1.classList.remove('turned');
+      card2.classList.remove('turned');
+      memoryGame.pickedCards = [];
+    }
   }
 
   // Add all the divs to the HTML
@@ -52,8 +84,11 @@ window.addEventListener('load', (event) => {
   document.querySelectorAll('.card').forEach((card) => {
     card.addEventListener('click', () => {
       // TODO: write some code here
+      printClicks();
+      if (memoryGame.checkIfFinished()) { alert("bravo")}
+      console.log(card);
       cardPicked (card) ;
-      console.log(`Card clicked: ${card}`);
+      
     });
   });
 });

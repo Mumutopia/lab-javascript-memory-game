@@ -23,7 +23,7 @@ class MemoryGame {
 
   checkIfFinished() {
     
-   return (this.pairsGuessed === this.cards.length/2) ? true : false;
+   return ((this.pairsGuessed ) === this.cards.length/2) ? true : false;
       
     
   }
